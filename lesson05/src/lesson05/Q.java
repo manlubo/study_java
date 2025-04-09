@@ -88,31 +88,74 @@ public class Q {
 		// 3. 월(month)을 입력받아서 계절을 출력
 		// 예시 3~5월은 봄
 		
-		System.out.println("월을 입력해주세요.(ex : 3)");
-		Scanner scannerMonth = new Scanner(System.in);
-		int mon =  scannerMonth.nextInt();
+//		System.out.println("월을 입력해주세요.(ex : 3)");
+//		Scanner scannerMonth = new Scanner(System.in);
+//		int mon =  scannerMonth.nextInt();
+//		
+//		
+//		switch(mon){
+//			case 3: case 4: case 5:
+//				System.out.println("봄");
+//				break;
+//			case 6: case 7: case 8:
+//				System.out.println("여름");
+//				break;
+//			case 9: case 10: case 11:
+//				System.out.println("가을");
+//				break;
+//			case 12: case 1: case 2:
+//				System.out.println("겨울");
+//				break;
+//			default:
+//				System.out.println("잘못된 숫자입니다.");
+//		}
+//		
+		
+		// 79p 3
+//		int colorPen = 5 * 12;
+//		int studentCount = 27;
+//		
+//		System.out.println("인당 " + colorPen / studentCount + "자루 씩 나누어줄 수 있습니다.");
+//		System.out.println("연필 " + colorPen % studentCount + "자루가 남습니다.");
+		
+		// 80p 4
+//		int age, height, parent, hearchDeases;
+//		age = 4;
+//		height = 120;
+//		parent = 0;
+//		hearchDeases = 0;
+//		
+//		
+//		boolean ruleAge = age >= 6 ; //6세 이상인가?
+//		boolean ruleHeight = height >= 120 ; // 키가 120 이상인가
+//		boolean ruleParent = 0 != parent ; // 부모님이 있으면 0 이외의 숫자
+//		boolean ruleHearchDeases = 0 != hearchDeases ; // 심장질환이 있으면 0 이외의 숫자
+//		boolean canEnter = !ruleHearchDeases && (ruleAge || !ruleAge && ruleParent) && ruleHeight;
+//		
+//		System.out.println(canEnter);
 		
 		
-		switch(mon){
-			case 3: case 4: case 5:
-				System.out.println("봄");
-				break;
-			case 6: case 7: case 8:
-				System.out.println("여름");
-				break;
-			case 9: case 10: case 11:
-				System.out.println("가을");
-				break;
-			case 12: case 1: case 2:
-				System.out.println("겨울");
-				break;
-			default:
-				System.out.println("잘못된 숫자입니다.");
-		}
+		// 80p 5
+//		int year = 2020;
+//		boolean leapYear = year % 4 == 0 && year % 100 != 0 || year % 400 == 0 ;
+//		System.out.println(leapYear);
 		
-		
-		
-		
+		// 81p 6
+//		int price = 187000;
+//		int oman = price / 50000;
+//		int ilman = price % 50000 / 10000;
+//		int ochun = price % 50000 % 10000 / 5000;
+//		int ilchun = price % 50000 % 10000 % 5000 / 1000;
+//		
+//		System.out.println("5만원권 : " + oman + "장");
+//		System.out.println("1만원권 : " + ilman + "장");
+//		System.out.println("5천원권 : " + ochun + "장");
+//		System.out.println("1천원권 : " + ilchun + "장");
+//		
+		// 81 7p
+		int  number = 1234;
+		int result = ((int)(number / 100d)*100);
+		System.out.println(result);
 		
 	}
 }
