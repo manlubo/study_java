@@ -33,14 +33,13 @@ public class Q {
 		
 		
 //		System.out.println("아이디를 입력해주세요.");
-//		Scanner scannerID = new Scanner(System.in);
-//		String ID = scannerID.nextLine();
+//		Scanner scanner = new Scanner(System.in);
+//		String id = scanner.nextLine();
 //		System.out.println("비밀번호를 입력해주세요.");
-//		Scanner scannerPW = new Scanner(System.in);
-//		String PW = scannerPW.nextLine();
+//		String pw = scanner.nextLine();
 //		
-//		if (ID.equals("admin")) {
-//			if(PW.equals("1234")) {
+//		if (id.equals("admin")) {
+//			if(pw.equals("1234")) {
 //				System.out.println("로그인 성공");
 //			}
 //			else {
@@ -50,16 +49,24 @@ public class Q {
 //		else {
 //			System.out.println("없는 계정입니다.");
 //		}
-		
-		
-		
+//		
+//		if (!id.equals("admin")) {
+//			System.out.println("없는 계정입니다.");
+//		}
+//		else if (pw.equals("1234")) {
+//			System.out.println("로그인 성공");
+//		}
+//		else {
+//			System.out.println("잘못된 비밀번호");
+//		}
+//		
 		
 		// 2.  숫자 하나를 입력받아서
 		// 3의 배수 그리고 짝수여부를 동시판별
 		// 3의 배수, 짝수, 3의배수이면서 짝수, 둘다 아닌경우
 //		System.out.println("숫자를 입력해주세요.");
-//		Scanner scannerNum = new Scanner(System.in);
-//		int num = scannerNum.nextInt();
+//		Scanner scanner = new Scanner(System.in);
+//		int num = scanner.nextInt();
 //		
 //		if(num % 2 == 0 || num % 3 == 0) {
 //			if(num % 2 == 0 && num % 3 == 0) {	
@@ -78,11 +85,34 @@ public class Q {
 //		}
 			
 		
+//		if(num % 2 == 0 && num % 3 == 0) {
+//			System.out.println("3의 배수이면서 짝수");
+//		}
+//		else if(num % 2 == 0) {
+//				System.out.println("짝수");
+//		}
+//		else if(num % 3 == 0) {
+//			System.out.println("3의 배수");
+//		}
+//		else {
+//		System.out.println("둘다 아닙니다.");
+//		}
 		
-		
-		
-		
-		
+		// 비트 마스크 플래그
+//		boolean 삼의배수 = num % 3 == 0;
+//		boolean 짝수 = num % 2 == 0;
+//		int result = 0;
+//		result = 삼의배수 ? 1:0;
+//		result = 짝수 ? 2:0;
+//		
+//		switch(result) {
+//		case 1:
+//			num = "3의 배수 ";
+//		case 2:
+//			num = "3의 배수 ";
+//		case 3:
+//			num = "3의 배수 ";
+//		}
 		
 		
 		// 3. 월(month)을 입력받아서 계절을 출력
@@ -119,18 +149,16 @@ public class Q {
 //		System.out.println("연필 " + colorPen % studentCount + "자루가 남습니다.");
 		
 		// 80p 4
-//		int age, height, parent, hearchDeases;
-//		age = 4;
+//		int age, height;
+//		age = 7;
 //		height = 120;
-//		parent = 0;
-//		hearchDeases = 0;
+//		boolean parent = false;
+//		boolean hearchDeases = false;
 //		
 //		
 //		boolean ruleAge = age >= 6 ; //6세 이상인가?
 //		boolean ruleHeight = height >= 120 ; // 키가 120 이상인가
-//		boolean ruleParent = 0 != parent ; // 부모님이 있으면 0 이외의 숫자
-//		boolean ruleHearchDeases = 0 != hearchDeases ; // 심장질환이 있으면 0 이외의 숫자
-//		boolean canEnter = !ruleHearchDeases && (ruleAge || !ruleAge && ruleParent) && ruleHeight;
+//		boolean canEnter = !hearchDeases && (ruleAge || parent) && ruleHeight;
 //		
 //		System.out.println(canEnter);
 		
@@ -141,21 +169,21 @@ public class Q {
 //		System.out.println(leapYear);
 		
 		// 81p 6
-//		int price = 187000;
+//		int price = 187_000;
 //		int oman = price / 50000;
 //		int ilman = price % 50000 / 10000;
-//		int ochun = price % 50000 % 10000 / 5000;
-//		int ilchun = price % 50000 % 10000 % 5000 / 1000;
+//		int ochun = price  % 10000 / 5000;
+//		int ilchun = price % 5000 / 1000;
 //		
 //		System.out.println("5만원권 : " + oman + "장");
 //		System.out.println("1만원권 : " + ilman + "장");
 //		System.out.println("5천원권 : " + ochun + "장");
 //		System.out.println("1천원권 : " + ilchun + "장");
-//		
-		// 81 7p
-		int  number = 1234;
-		int result = ((int)(number / 100d)*100);
-		System.out.println(result);
+		
+		// 81p 7
+//		int  number = 1234;
+//		int result = (number / 100 * 100);
+//		System.out.println(result);
 		
 	}
 }
