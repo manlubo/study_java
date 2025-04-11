@@ -127,15 +127,16 @@ public class Ex250411 {
 		}
 		
 		//6
+		int a1 = 4;
 		for(int i = 1; i <= 9; i++) {
 			if(i % 2 == 1) {
-				for(int j = 1; j <= i; j++) {
-					if (j <= i) {
-						System.out.print("*");
+				for(int j = 1; j <= i; j++) {					
+					if(j < 2) {
+						for(int k = (10 - i) / 2; k < 9 - i; k++) {
+							System.out.print(" ");
+						}
 					}
-					else if (10 - i != 0) {
-						System.out.println(" ");
-					}
+					System.out.printf("%s","*");
 				}
 			System.out.println();
 			}
@@ -149,6 +150,6 @@ public class Ex250411 {
 			dice = (int)(Math.random() * 6 + 1);
 			check++;
 		}
-		System.out.println(check);
+		System.out.println("주사위를 굴린 횟수 : " + check);
 	}
 }
