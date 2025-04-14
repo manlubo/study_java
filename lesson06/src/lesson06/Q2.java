@@ -8,25 +8,14 @@ public class Q2 {
 		
 		// 크기가 50인 정수배열, 1~20사이의 임의의 값으로 채움
 		// 배열에서 중복된 값을 제거한 배열을 생성하고, 결과를 출력
-//		int[] list = new int [50];
-//		
-//		for(int i = 0; i < list.length; i++) {
-//			list[i] = (int)(Math.random()*20 + 1);
-//		}
-//		System.out.println(Arrays.toString(list));
-//		
-//		int max = 0;
-//		int[] count = new int[max];
-//		for(int i = 0; i < list.length; i++) {
-//			for(int j = 0; j < list.length; j++) {
-//				if(list[i] != list[j]) {
-//					for(int k = 0; k < count.length; k++) {
-//						
-//					}
-//					
-//				}
-//			}
-//		}
+		int[] list = new int [50];
+		
+		for(int i = 0; i < list.length; i++) {
+			list[i] = (int)(Math.random()*20 + 1);
+		}
+		System.out.println(Arrays.toString(list));
+		
+		
 		
 		
 		
@@ -55,18 +44,18 @@ public class Q2 {
 		
 		// 마름모 만들기
 		
-		int max = 5;
-		
-		for(int i = 1; i <= max; i++) {
-			for(int j = 1; j <= i; j++) {
-				for(int k = 1; k <= (max - i) / 2 && j == 1; k++) {
-					System.out.print(" ");
-				}
-				System.out.print("*");
-			}
-			i++;
-			System.out.println();
-		}
+//		int max = 5;
+//		
+//		for(int i = 1; i <= max; i++) {
+//			for(int j = 1; j <= i; j++) {
+//				for(int k = 1; k <= (max - i) / 2 && j == 1; k++) {
+//					System.out.print(" ");
+//				}
+//				System.out.print("*");
+//			}
+//			i++;
+//			System.out.println();
+//		}
 	}
 
 }

@@ -14,7 +14,7 @@ public class Ex250411 {
 		for(int i = 0;i < units.length; i++) {
 			if(money / units[i] != 0) {
 			count[i] = money / units[i];
-			money = money % units[i];
+			money %= units[i];
 			}
 		}
 		System.out.println(Arrays.toString(count));
