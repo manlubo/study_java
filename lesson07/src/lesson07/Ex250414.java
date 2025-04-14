@@ -23,22 +23,37 @@ public class Ex250414 {
 		
 		// 2. 50개의 길이를 가지는 정수 배열 생성, 각 값은 1~20사이의 숫자로 채우기
 		// 이후 중복된 값을 제거한 새로운 배열을 생성
-		
+		System.out.println("=========중복X==========");
 		int[] list = new int[50];
 		for(int i = 0; i < list.length; i++) {
 			list[i] = (int)(Math.random() * 20 + 1);
 		}
 		System.out.println(Arrays.toString(list));
+	
 		
 		
-//		for(int i = 0; i < list.length; i++) {
-//			for(int j = 0; j < list.length; j++) {
-//				if(list[i] == list[j]) {
-//					
-//				}
-//			}
-//		}
-//		System.out.println(Arrays.toString(list));		
+		int[] listNum = new int[50];
+		listNum[0] = list[0]; 
+		
+		for(int i = 1; i < list.length; i++) {
+			int tmp = 0;
+			for(int j = 0; j < i; j++) {
+				if(list[i] == list[j]) {
+					tmp++;
+				}
+				else if(tmp != 0){
+					listNum[i] = list[j];
+				}
+			}
+		}
+		
+		System.out.println(Arrays.toString(listNum));
+		
+		
+		
+		
+		
+			
 		
 			
 			
@@ -68,15 +83,20 @@ public class Ex250414 {
 //		System.out.println(Arrays.deepToString(chs));
 		
 		for(int i = 0; i < chs.length; i++) {
-			for(int j = 0; j < chs. length; j++) {
-				result[j][i] = chs[j][i];
+			for(int j = 0; j < chs.length; j++) {
+				int c = chs.length - i - 1;
+				result[i][j] = chs[c][j];
 			}
 		}
+		
+		
 		System.out.println(Arrays.toString(result[0]));
 		System.out.println(Arrays.toString(result[1]));
 		System.out.println(Arrays.toString(result[2]));
 		System.out.println(Arrays.toString(result[3]));
 		System.out.println(Arrays.toString(result[4]));
+		
+		
 		
 
 		
