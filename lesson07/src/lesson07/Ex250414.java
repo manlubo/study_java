@@ -21,33 +21,53 @@ public class Ex250414 {
 		System.out.println(Arrays.toString(fibo));
 		
 		
+		int a = 1;
+		int b = 1;
+		System.out.print(a + " " + b + " ");
+		for(int i = 0; i <20; i++) {
+			int c = a + b;
+			System.out.print(c + " ");
+			a = b;
+			b = c;
+		}
+		
+		// 1 1 2
+		//   1 2 3
+		//     2 3 5
+		
 		// 2. 50개의 길이를 가지는 정수 배열 생성, 각 값은 1~20사이의 숫자로 채우기
 		// 이후 중복된 값을 제거한 새로운 배열을 생성
 		System.out.println("=========중복X==========");
-		int[] list = new int[50];
-		for(int i = 0; i < list.length; i++) {
-			list[i] = (int)(Math.random() * 20 + 1);
+		int[] arr = new int[50];
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = (int)(Math.random() * 20 + 1);
 		}
-		System.out.println(Arrays.toString(list));
+		System.out.println(Arrays.toString(arr));
 	
 		
 		
-		int[] listNum = new int[50];
-		listNum[0] = list[0]; 
+		int[] tmp = new int[20];
+		int length = 0;
 		
-		for(int i = 1; i < list.length; i++) {
-			int tmp = 0;
-			for(int j = 0; j < i; j++) {
-				if(list[i] == list[j]) {
-					tmp++;
+		System.out.println(Arrays.toString(tmp));
+		
+
+		for(int n : arr) {    // 이해하기
+			boolean insert = true;
+			for(int i = 0; i < length; i++) {
+				if(n == tmp[i]) {
+					insert = false;
+					break;
 				}
-				else if(tmp != 0){
-					listNum[i] = list[j];
-				}
+			}
+			if(insert) {
+				tmp[length++] = n;
 			}
 		}
 		
-		System.out.println(Arrays.toString(listNum));
+		System.out.println(Arrays.toString(tmp));
+		tmp = Arrays.copyOf(tmp, length);
+		System.out.println(Arrays.toString(tmp));
 		
 		
 		
@@ -59,7 +79,7 @@ public class Ex250414 {
 			
 			
 		
-		//3. 2차원 배열 
+		//3. 2차원 배열 또보자 
 		/* 
 		 * **
 		 * **
@@ -80,26 +100,76 @@ public class Ex250414 {
 //		
 //		
 //		
-//		System.out.println(Arrays.deepToString(chs));
+		System.out.println(Arrays.deepToString(chs));
 		
 		for(int i = 0; i < chs.length; i++) {
 			for(int j = 0; j < chs.length; j++) {
-				int c = chs.length - i - 1;
-				result[i][j] = chs[c][j];
+				result[j][chs.length - i - 1] = chs[i][j];
 			}
 		}
 		
 		
-		System.out.println(Arrays.toString(result[0]));
-		System.out.println(Arrays.toString(result[1]));
-		System.out.println(Arrays.toString(result[2]));
-		System.out.println(Arrays.toString(result[3]));
-		System.out.println(Arrays.toString(result[4]));
+//		System.out.println(Arrays.toString(result[0]));
+//		System.out.println(Arrays.toString(result[1]));
+//		System.out.println(Arrays.toString(result[2]));
+//		System.out.println(Arrays.toString(result[3]));
+//		System.out.println(Arrays.toString(result[4]));
+//		
+		
+		for(char[] t : result) {
+			for(char n : t) {
+				System.out.print(n + " ");
+			}
+			System.out.println();
+		}
 		
 		
 		
+		
+		int[][] val = {  					//또보자
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+		};
 
+		int[][] result1 = new int[3][3]; 
 		
+		result1[0][2] = val[0][0]; //1
+		result1[1][2] = val[0][1]; //2
+		result1[2][2] = val[0][2]; //3
+		
+		result1[0][1] = val[1][0]; //4
+		result1[1][1] = val[1][1]; //5
+		result1[2][1] = val[1][2]; //6
+		
+		result1[0][0] = val[2][0]; //7
+		result1[1][0] = val[2][1]; //8
+		result1[2][0] = val[2][2]; //9
+		
+		for(int i = 0; i <val.length; i++) {
+			for(int j = 0; j < val[i].length; j++) {
+				System.out.print(val[i][j] + " ");
+				result1[j][3-1-i] = val[i][j];
+			}
+			System.out.println();
+		}
+		
+		for(int[] t : result1) {
+			for(int n : t) {
+				System.out.print(n + " ");
+			}
+			System.out.println();
+		}
+		
+		/* 1 2 3
+		 * 4 5 6
+		 * 7 8 9
+		 * 
+		 * 7 4 1
+		 * 8 5 2
+		 * 9 6 3
+		 * 
+		 */
 		
 		
 		
