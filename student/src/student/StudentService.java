@@ -23,11 +23,15 @@ public class StudentService {
 		int num = StudentUtills.nextInt("학번을 입력하세요 : ");
 		for(int i = 0; i < students.length; i++) {
 			if(students[i].no == num) {
-				System.out.print("학번 : " + students[i].no + " ");
-				System.out.print("이름 : " + students[i].name + " ");
-				System.out.print("국어점수 : " + students[i].kor + " ");
-				System.out.print("영어점수 : " + students[i].eng + " ");
-				System.out.print("수학점수 : " + students[i].mat + " ");
+				System.out.println("학번 : " + students[i].no);
+				System.out.println("이름 : " + students[i].name);
+				System.out.println("국어 : " + students[i].kor);
+				System.out.println("영어 : " + students[i].eng );
+				System.out.println("수학 : " + students[i].mat);
+				int sum = students[i].kor + students[i].eng  + students[i].mat;
+				int avg = sum / 3;
+				System.out.println("총점 : " + sum);
+				System.out.println("평균 : " + avg);
 				System.out.println();
 				break;
 			}
