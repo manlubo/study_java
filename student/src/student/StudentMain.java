@@ -12,7 +12,7 @@ public class StudentMain {
 		
 		StudentService service = new StudentService ();
 		System.out.println("================= 학생 점수 관리 프로그램 ==================");
-		for(int i = 0; i < service.students.length;) {
+		for(;;) {
 			switch (StudentUtills.nextInt("1. 등록 2. 조회 3. 수정 4. 삭제 5. 종료")) {
 			case 1:
 				service.register();

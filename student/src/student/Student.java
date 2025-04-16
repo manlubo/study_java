@@ -12,23 +12,35 @@ public class Student {
 	int eng;
 	int mat;
 	
+	
+	
+	
 	Student(){
 		
 	}
+	
 	Student(int no, String name, int kor, int eng, int mat){
-		this.no = no;
-		this.name = name;
+		this(no, name);
 		this.kor = kor;
 		this.eng = eng;
 		this.mat = mat;
 	}
+	
 	Student(int no, String name){
-		this(no, name, 0, 0, 0);
+		this.no = no;
+		this.name = name;
 	}
 	
 	public String toString() {
-		return no + "," + name + "," + kor + "," + eng + "," + mat;
+		return "학번 : " + no + "\n이름 : " + name + "\n국어 : " + kor + "\n영어 : " + eng + "\n수학 : " + mat;
 	}
 	
+	int total () {
+		return kor + eng + mat;
+	}
+	
+	double avg () {
+		return (kor + eng + mat) / 3d;
+	}
 	
 }
