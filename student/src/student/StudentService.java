@@ -60,10 +60,9 @@ public class StudentService {
 		int no = StudentUtills.nextInt("삭제를 원하시는 학번을 입력하세요 : ");
 		for(int i = 0; i < count ; i++) {
 			if(students[i].no == no) {
-				System.arraycopy(students, i , students, i + 1, count - i + 1);
+				System.arraycopy(students, i + 1, students, i ,  count - i - 1);
 				students[count--] = null;
-				break;
-			}
-		}	
+			}	
+		}
 	}
 }
