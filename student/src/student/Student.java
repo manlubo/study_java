@@ -32,7 +32,8 @@ public class Student {
 	}
 	
 	public String toString() {
-		return "학번 : " + no + "\n이름 : " + name + "\n국어 : " + kor + "\n영어 : " + eng + "\n수학 : " + mat;
+		return "학번 : " + no + "\n이름 : " + name + "\n국어 : " + kor + ", 영어 : " + eng + ", 수학 : " + mat + "\n총점 : " + total() + ", 평균 : " + avg() + "\n";
+		
 	}
 	
 	int total () {
@@ -42,5 +43,7 @@ public class Student {
 	double avg () {
 		return total() / 3d;
 	}
+	
+	
 	
 }

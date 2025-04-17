@@ -10,7 +10,7 @@ public class StudentService {
 	int count = 0;
 	{
 		students[count++] = new Student(1, "개똥이", 90, 88, 77);
-		students[count++] = new Student(2, "고길동", 15, 15, 85);
+		students[count++] = new Student(2, "고길동", 100, 100, 85);
 	}
 	// 1. 중복학생 방지 O
 	// 2. 과목당 평균값 출력 + 총 평균 O
@@ -19,7 +19,7 @@ public class StudentService {
 	
 	// 등록
 	void register() {
-		System.out.println("등록 기능");
+		System.out.println("==== 등록 기능 ====");
 		
 		if(count == students.length) {
 			students = Arrays.copyOf(students, students.length * 2);
@@ -55,16 +55,16 @@ public class StudentService {
 	
 	// 조회
 	void read() {
-		System.out.println("조회 기능");	
+		System.out.println("==== 조회 기능 ====");	
 		for(int i = 0; i < count ; i++) {
-			System.out.println(students[i].no + ", " + students[i].name + ", " + students[i].total() +  ", " + students[i].avg());
+			System.out.println(students[i].toString());
 			
 		}
 	}
 	
 	// 수정
 	void modify() {
-		System.out.println("수정 기능"); // 학생들 배열에서 입력받은 학번과 일치하는 학생
+		System.out.println("==== 수정 기능 ===="); // 학생들 배열에서 입력받은 학번과 일치하는 학생
 		int no = StudentUtills.nextInt("수정을 원하시는 학번을 입력하세요 : ");
 		Student s = null;
 		for(int i = 0; i < count ; i++) {
@@ -81,7 +81,7 @@ public class StudentService {
 	
 	// 삭제
 	void remove() {
-		System.out.println("삭제 기능");
+		System.out.println("==== 삭제 기능 ====");
 		int no = StudentUtills.nextInt("삭제를 원하시는 학번을 입력하세요 : ");
 		for(int i = 0; i < count ; i++) {
 			if(students[i].no == no) {
@@ -95,37 +95,39 @@ public class StudentService {
 	
 	// 과목별 평균
 	void allavg() {
-	
+		System.out.println("==== 과목별 평균 확인 ====");
 		double kor = 0; // 국어 평균
 		for(int i = 0; i < count; i++) {
 			kor += students[i].kor;
 		}
 		kor /= count;
-		System.out.println("국어점수 평균 : " + kor);
+		System.out.print("국어 평균 : " + kor);
 		
 		double eng = 0; // 영어 평균
 		for(int i = 0; i < count; i++) {
 			eng += students[i].eng;
 		}
 		eng /= count;
-		System.out.println("영어점수 평균 : " + eng);
+		System.out.print(", 영어 평균 : " + eng);
 		
 		double mat = 0; // 수학 평균
 		for(int i = 0; i < count; i++) {
 			mat += students[i].mat;
 		}
 		mat /= count;
-		System.out.println("수학점수 평균 : " + mat);
+		System.out.print(", 수학 평균 : " + mat);
 		
 		
 		double avg = (kor + eng + mat) / 3;
-		System.out.println("전체 평균 : " + avg);
+		System.out.println(", 전체 평균 : " + avg);
+		
 		
 	}
 	
 	
 	// 석차순 조회
 	void rank() {
+		System.out.println("==== 전체 석차 확인 ====");
 		copy = students;
 		Student[] copy2 = new Student[count];
 		copy = Arrays.copyOf(copy, count);
@@ -148,8 +150,8 @@ public class StudentService {
 		}
 		int rank = 1;
 		for(int i = 0; i < count ; i++) {
-			System.out.println(rank + "위 :" + copy[i].no + ", " + copy[i].name + ", " + copy[i].total() +  ", " + copy[i].avg());
-			rank++;
+			System.out.println("[ " + rank++ + "위 ]" + "\n" + copy[i].toString());
+			
 		}
 	}
 	
