@@ -40,7 +40,7 @@ public class Student {
 	}
 	
 	double avg () {
-		return (kor + eng + mat) / 3d;
+		return total() / 3d;
 	}
 	
 }
