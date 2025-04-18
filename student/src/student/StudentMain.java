@@ -31,7 +31,7 @@ public class StudentMain {
 				break;
 				
 			case 5:
-				service.allavg();
+				service.allAvg();
 				break;
 				
 			case 6:
