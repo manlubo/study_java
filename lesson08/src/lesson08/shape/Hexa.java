@@ -13,12 +13,13 @@ public class Hexa extends Rect implements SHAPE3D{
 		this.z = z;
 	}
 	
-	Rect rect = new Rect(x, y);
+	
 	
 	public double volume() {
-		return rect.area() * z;  
+		return area() * z;  
 	}
+	
 	public double surfacearea() {
-		return rect.area() * 2 + rect.area() * 2;  
+		return area() * 2 + circum() * z;  
 	}
 }

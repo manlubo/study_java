@@ -12,12 +12,12 @@ public class Cylinder extends Circle implements SHAPE3D {
 		this.z = z;
 	}
 	
-	Circle circle = new Circle(x);
+	
 	
 	public double volume() {
-		return circle.area() * z;  
+		return area() * z;  
 	}
 	public double surfacearea() {
-		return circle.circum() * z + circle.area() * 2;  
+		return circum() * z + area() * 2;  
 	}
 }

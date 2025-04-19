@@ -1,6 +1,6 @@
 package lesson08.shape;
 
-public class Prism extends Shape3d{
+public class Prism extends Tri implements SHAPE3D{
 	int x, y, z;
 	
 	public Prism() {}
@@ -11,12 +11,12 @@ public class Prism extends Shape3d{
 		this.z = z;
 	}
 	
-	Tri tri = new Tri(x , y);
+	
 	
 	public double volume() {
-		return tri.area() * z;  
+		return area() * z;  
 	}
 	public double surfacearea() {
-		return tri.area() * 2 + tri.circum() * z;  
+		return area() * 2 + circum() * z;  
 	}
 }
