@@ -8,8 +8,8 @@ public class Hexa extends Rect implements SHAPE3D{
 	public Hexa() {}
 	
 	public Hexa(int x,int y, int z) {
-		this.x = x;
-		this.y = y;
+		super.x = x;
+		super.y = y;
 		this.z = z;
 	}
 	

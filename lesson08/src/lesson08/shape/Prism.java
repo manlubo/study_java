@@ -1,16 +1,27 @@
 package lesson08.shape;
 
 public class Prism extends Tri implements SHAPE3D{
+
+	
+	
 	int x, y, z;
+	
+	
+
 	
 	public Prism() {}
 	
+//	public Prism(int x, int y) {
+//		super.x = x;
+//		super.y = y;
+//		
+//	}
+	
 	public Prism(int x,int y,int z) {
-		this.x = x;
-		this.y = y;
+		super.x = x;
+		super.y = y;
 		this.z = z;
 	}
-	
 	
 	
 	public double volume() {

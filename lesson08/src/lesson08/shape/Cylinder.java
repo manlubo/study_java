@@ -1,14 +1,14 @@
 package lesson08.shape;
 
 public class Cylinder extends Circle implements SHAPE3D {
-	int x, z;
+	int r, z;
 	
 	
 	
 	public Cylinder() {}
 	
-	public Cylinder(int x, int z) {
-		this.x = x;
+	public Cylinder(int r, int z) {
+		super.r = r;
 		this.z = z;
 	}
 	
