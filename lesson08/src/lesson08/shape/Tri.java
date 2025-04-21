@@ -1,6 +1,6 @@
 package lesson08.shape;
 
-public class Tri extends Shape{
+public class Tri extends Shape implements Shape2D{
 	int x, y;
 	
 	public Tri () {}
@@ -21,6 +21,8 @@ public class Tri extends Shape{
 	public double hypo() {
 		return Math.sqrt(x * x + y * y);
 	}
-	
+	public String toString() {
+		return super.toString() + "\n 둘레 : " + circum();
+	}
 	
 }

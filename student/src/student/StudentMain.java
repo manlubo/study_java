@@ -45,16 +45,17 @@ public class StudentMain {
 					System.out.println("bye~!");
 					return;
 				default:
+					System.out.println("지정된 범위의 숫자를 입력해주세요.");
 					break;
 				}
 			}
 			catch (NumberFormatException e) {
-				System.out.println("0 이상의 정수를 입력해주세요.");
+				System.out.println("정확한 숫자를 입력해주세요.");
+			}
+			catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
-		
-		
-		
 		
 	}
 }

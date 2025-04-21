@@ -12,14 +12,8 @@ public class StudentService {
 	private int ranscore;
 	
 	
-	private int scoreran() {
-		while(true) {
-			ranscore = (int)(Math.random() * 100) + 1;
-			
-			if(ranscore >= 60 && ranscore <= 100) {
-				break;
-			}
-		}
+	private int randomScore() {
+			ranscore = (int)(Math.random() * 41) + 60;
 			return ranscore;
 	}
 	
@@ -29,12 +23,12 @@ public class StudentService {
 	Student[] sortedStudents = new Student[students.length];
 	// {null, null ...} 으로 생성됨
 
-	int count = 0;
+	public int count = 0;
 	{
-		students[count++] = new Student(1, "김둘리", scoreran(), scoreran(), scoreran());
-		students[count++] = new Student(2, "박또치", scoreran(), scoreran(), scoreran());
-		students[count++] = new Student(3, "고길동", scoreran(), scoreran(), scoreran());
-		students[count++] = new Student(4, "마이콜", scoreran(), scoreran(), scoreran());
+		students[count++] = new Student(1, "김둘리", randomScore(), randomScore(), randomScore());
+		students[count++] = new Student(2, "박또치", randomScore(), randomScore(), randomScore());
+		students[count++] = new Student(3, "고길동", randomScore(), randomScore(), randomScore());
+		students[count++] = new Student(4, "마이콜", randomScore(), randomScore(), randomScore());
 		
 		sortedStudents = students.clone();
 	}
@@ -44,7 +38,7 @@ public class StudentService {
 	// 입력 : 학번
 	// 출력 : 학생
 	// 중복 체크
-	private Student findBy(int no) {
+	public Student findBy(int no) {
 		Student student = null;
 		for (int i = 0; i < count; i++) {
 			if(no == students[i].getNo()) {
@@ -55,6 +49,32 @@ public class StudentService {
 		return student;
 	}
 	
+	// 점수 범위 체크 메서드
+	public int checkRange(String subject, int input, int start, int end) {
+		if(input < start || input > end) {
+			throw new IllegalArgumentException(subject + "값의 범위가 벗어났습니다. " + start + " ~ " + end + " 사이의 값을 입력해주세요.");
+		}
+		return input;
+	}
+	
+	public int checkRange(String subject, int input) {
+		return checkRange(subject, input, 0, 100);
+	}
+	
+	
+	// 이름 체크 메서드
+	public String inputName() {
+		String name = StudentUtills.nextLine("이름을 입력하세요 : ");
+		if(name.length() < 2 || name.length() > 4) {
+			throw new IllegalArgumentException("이름은 2 ~ 4 글자로 입력해주세요.");
+		}
+		for(int i = 0; i < name.length(); i++) {
+			if(name.charAt(i) < '가' || name.charAt(i) > '힣') {
+				throw new IllegalArgumentException("이름은 한글로 구성되어야 합니다.");
+			}
+		}
+		return name;
+	}
 	
 	
 	
@@ -78,14 +98,15 @@ public class StudentService {
 		
 		
 		
-		String name = StudentUtills.nextLine("이름을 입력하세요 : ");
-		
-		
+		String name = inputName();
 		int kor = StudentUtills.nextInt("국어 점수를 입력하세요 : ");
+		checkRange("국어", kor);
 		
 		int eng = StudentUtills.nextInt("영어점수를 입력하세요 : ");
+		checkRange("영어", eng);
 		
 		int mat = StudentUtills.nextInt("수학점수를 입력하세요 : ");
+		checkRange("수학", mat);
 		
 
 		students[count++] = new Student(no, name, kor, eng, mat);
@@ -106,12 +127,12 @@ public class StudentService {
 		}
 	}
 	
-	void readOrder() {
+	public void readOrder() {
 		System.out.println("석차순 조회 기능");
 		print(sortedStudents);
 	}
 	
-	void print(Student[] stu) {
+	public void print(Student[] stu) {
 		for(int i = 0; i < count; i++) {
 			System.out.println(stu[i]);
 		}
@@ -129,24 +150,24 @@ public class StudentService {
 		int no = StudentUtills.nextInt("수정을 원하시는 학번을 입력하세요 : ");
 		Student s = findBy(no);
 		
+		
 		if(s == null) {
 			System.out.println("입력된 학번이 존재하지 않습니다.");
 			return;
 		}
-		
 		if(no <= 0) {
 			System.out.println("0 이하의 값은 학번으로 사용할 수 없습니다.");
 			return;
 		}
 		
-		s.setName(StudentUtills.nextLine("이름을 입력하세요 : ")); 
 		
-		
+		s.setName(inputName()); 
 		s.setKor(StudentUtills.nextInt("국어 점수를 입력하세요 : "));
-		
+		checkRange("국어", s.getKor());
 		s.setEng(StudentUtills.nextInt("영어점수를 입력하세요 : "));
-		
+		checkRange("영어", s.getEng());
 		s.setMat(StudentUtills.nextInt("수학점수를 입력하세요 : "));
+		checkRange("수학", s.getMat());
 		
 		
 		
@@ -188,9 +209,9 @@ public class StudentService {
 			eng += students[i].getEng();
 			mat += students[i].getMat();
 		}
-		kor /= count;
-		eng /= count;
-		mat /= count;
+		kor /= (double)count;
+		eng /= (double)count;
+		mat /= (double)count;
 		
 		double avg = (kor + eng + mat) / 3;
 		
@@ -222,14 +243,5 @@ public class StudentService {
 			System.out.println("[ " + (i + 1) + "위 ] " + sortedStudents[i].toString());
 			
 		}
-	}
-
-		
-		
-	
-	
-	
-	
-	
-	
+	}	
 }

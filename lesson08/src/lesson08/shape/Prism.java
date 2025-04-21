@@ -1,33 +1,30 @@
 package lesson08.shape;
 
-public class Prism extends Tri implements SHAPE3D{
+public class Prism extends Shape implements Shape3D{
 
+	Tri tri;
 	
-	
-	int x, y, z;
+	int z;
 	
 	
 
 	
 	public Prism() {}
 	
-//	public Prism(int x, int y) {
-//		super.x = x;
-//		super.y = y;
-//		
-//	}
 	
-	public Prism(int x,int y,int z) {
-		super.x = x;
-		super.y = y;
+	public Prism(Tri tri, int z) {
+		this.tri = tri;
 		this.z = z;
 	}
 	
 	
 	public double volume() {
-		return area() * z;  
+		return tri.area() * z;  
 	}
-	public double surfacearea() {
-		return area() * 2 + circum() * z;  
+	public double area() {
+		return tri.area() * 2 + tri.circum() * z;  
+	}
+	public String toString() {
+		return super.toString() + "\n 부피 : " + volume();
 	}
 }
