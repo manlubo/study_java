@@ -1,13 +1,13 @@
 package student;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class StudentService {
-	// 1. 모든 필드, 메서드, 생성자 > 접근제한자
-	// 2. 어떤 값을 입력하더라도 예외 처리 (프로그램 종료는 정상종료) O
-	// 3. 점수값 입력의 범위 0 ~ 100 사이만 인정 O
-	// 4. 이름 입력은 한글만 인정, 2글자 ~ 4글자 사이 O 
-	// 5. 임시데이터의 점수값을 랜덤으로 배정(60 ~ 100)  O
+	// 1. 학생 예제의 배열 > 리스트로 교체
+	// 2. 이름 유효성을 정규표현식으로 교체
 	
 	private int ranscore;
 	
@@ -18,19 +18,18 @@ public class StudentService {
 	}
 	
 	
-	
-	Student[] students = new Student[4];
-	Student[] sortedStudents = new Student[students.length];
-	// {null, null ...} 으로 생성됨
+	List<Student> students = new ArrayList<Student>();
+	List<Student> sortedStudents = new ArrayList<Student>();
 
-	public int count = 0;
+
+	
 	{
-		students[count++] = new Student(1, "김둘리", randomScore(), randomScore(), randomScore());
-		students[count++] = new Student(2, "박또치", randomScore(), randomScore(), randomScore());
-		students[count++] = new Student(3, "고길동", randomScore(), randomScore(), randomScore());
-		students[count++] = new Student(4, "마이콜", randomScore(), randomScore(), randomScore());
+		students.add(new Student(1, "김둘리", randomScore(), randomScore(), randomScore()));
+		students.add(new Student(2, "박또치", randomScore(), randomScore(), randomScore()));
+		students.add(new Student(3, "마이콜", randomScore(), randomScore(), randomScore()));
+		students.add(new Student(4, "고길동", randomScore(), randomScore(), randomScore()));
 		
-		sortedStudents = students.clone();
+		sortedStudents = students;
 	}
 	
 	
@@ -40,9 +39,9 @@ public class StudentService {
 	// 중복 체크
 	public Student findBy(int no) {
 		Student student = null;
-		for (int i = 0; i < count; i++) {
-			if(no == students[i].getNo()) {
-				student = students[i];
+		for (int i = 0; i < students.size(); i++) {
+			if(no == students.get(i).getNo()) {
+				student = students.get(i);
 				break;
 			}
 		}
@@ -63,15 +62,12 @@ public class StudentService {
 	
 	
 	// 이름 체크 메서드
-	public String inputName() {
+	public String inputName() throws IllegalArgumentException {
 		String name = StudentUtills.nextLine("이름을 입력하세요 : ");
-		if(name.length() < 2 || name.length() > 4) {
-			throw new IllegalArgumentException("이름은 2 ~ 4 글자로 입력해주세요.");
-		}
-		for(int i = 0; i < name.length(); i++) {
-			if(name.charAt(i) < '가' || name.charAt(i) > '힣') {
-				throw new IllegalArgumentException("이름은 한글로 구성되어야 합니다.");
-			}
+		String namecheck = "[가-힣]{2,4}";
+		if(!name.matches(namecheck)) {
+			throw new IllegalArgumentException("이름은 2 ~ 4글자 한글로 입력해주세요.");
+			
 		}
 		return name;
 	}
@@ -83,11 +79,6 @@ public class StudentService {
 	public void register() {
 		System.out.println("==== 등록 기능 ====");
 		
-		if(count == students.length) {
-			students = Arrays.copyOf(students, students.length * 2);
-		}
-			
-			
 		int no = StudentUtills.nextInt("학번을 입력하세요 : ");
 
 		Student s = findBy(no);
@@ -109,8 +100,8 @@ public class StudentService {
 		checkRange("수학", mat);
 		
 
-		students[count++] = new Student(no, name, kor, eng, mat);
-		sortedStudents = Arrays.copyOf(students, students.length);
+		students.add(new Student(no, name, kor, eng, mat));
+		sortedStudents = students;
 	}
 	
 	
@@ -121,20 +112,17 @@ public class StudentService {
 	// 조회
 	public void read() {
 		System.out.println("==== 조회 기능 ====");	
-		for(int i = 0; i < count ; i++) {
-			System.out.println(students[i].toString());
-			
-		}
+		print(students);
 	}
 	
 	public void readOrder() {
-		System.out.println("석차순 조회 기능");
+		System.out.println("==== 석차순 조회 기능 ====");
 		print(sortedStudents);
 	}
 	
-	public void print(Student[] stu) {
-		for(int i = 0; i < count; i++) {
-			System.out.println(stu[i]);
+	public void print(List<Student> s) {
+		for(int i = 0; i < s.size(); i++) {
+			System.out.println(s.get(i).toString());
 		}
 	}
 	
@@ -168,10 +156,6 @@ public class StudentService {
 		checkRange("영어", s.getEng());
 		s.setMat(StudentUtills.nextInt("수학점수를 입력하세요 : "));
 		checkRange("수학", s.getMat());
-		
-		
-		
-		sortedStudents = Arrays.copyOf(students, students.length);
 	}
 	
 	
@@ -188,9 +172,10 @@ public class StudentService {
 			System.out.println("입력된 학번이 존재하지 않습니다.");
 			return;
 		}
-		for(int i = 0; i < count ; i++) {
-			if(students[i].getNo() == no) {
-				System.arraycopy(students, i + 1, students, i ,  count-- - i - 1);
+		for(int i = 0; i < students.size() ; i++) {
+			if(students.get(i).getNo() == no) {
+				students.remove(i);
+				sortedStudents = students;
 				break;
 			}	
 		}
@@ -204,18 +189,18 @@ public class StudentService {
 		double kor = 0; // 국어 평균
 		double eng = 0; // 영어 평균
 		double mat = 0; // 수학 평균
-		for(int i = 0; i < count; i++) {
-			kor += students[i].getKor();
-			eng += students[i].getEng();
-			mat += students[i].getMat();
+		for(int i = 0; i < students.size(); i++) {
+			kor += students.get(i).getKor();
+			eng += students.get(i).getEng();
+			mat += students.get(i).getMat();
 		}
-		kor /= (double)count;
-		eng /= (double)count;
-		mat /= (double)count;
+		kor /= students.size();
+		eng /= students.size();
+		mat /= students.size();
 		
 		double avg = (kor + eng + mat) / 3;
 		
-		System.out.println(count + "명의 학생 평균입니다.");
+		System.out.println(students.size() + "명의 학생 평균입니다.");
 		System.out.printf("국어 평균 : %.2f", kor);
 		System.out.printf(", 영어 평균 : %.2f", eng);
 		System.out.printf(", 수학 평균 : %.2f", mat);
@@ -229,18 +214,18 @@ public class StudentService {
 	public void rank() {
 		System.out.println("==== 전체 석차 확인 ====");
 		
-		for(int i= 0; i < count; i++) {
+		for(int i= 0; i < sortedStudents.size(); i++) {
 			int idx = i;
-			for(int j = 1 + i; j < count; j++) {
-				if(sortedStudents[idx].total() < sortedStudents[j].total()) {
+			for(int j = 1 + i; j < sortedStudents.size(); j++) {
+				if(sortedStudents.get(idx).total() < sortedStudents.get(j).total()) {
 					idx = j;
 				}
 			}
-			Student tmp = sortedStudents[i];
-			sortedStudents[i] = sortedStudents[idx];
-			sortedStudents[idx] = tmp;
+			Student tmp = sortedStudents.get(i);
+			sortedStudents.set(i, sortedStudents.get(idx));
+			sortedStudents.set(idx, tmp);
 			
-			System.out.println("[ " + (i + 1) + "위 ] " + sortedStudents[i].toString());
+			System.out.println("[ " + (i + 1) + "위 ] " + sortedStudents.get(i).toString());
 			
 		}
 	}	
