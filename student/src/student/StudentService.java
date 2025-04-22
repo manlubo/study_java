@@ -29,7 +29,7 @@ public class StudentService {
 		students.add(new Student(3, "마이콜", randomScore(), randomScore(), randomScore()));
 		students.add(new Student(4, "고길동", randomScore(), randomScore(), randomScore()));
 		
-		sortedStudents = students;
+		sortedStudents = new ArrayList<Student>(students);
 	}
 	
 	
@@ -47,6 +47,7 @@ public class StudentService {
 		}
 		return student;
 	}
+	
 	
 	// 점수 범위 체크 메서드
 	public int checkRange(String subject, int input, int start, int end) {
@@ -101,7 +102,7 @@ public class StudentService {
 		
 
 		students.add(new Student(no, name, kor, eng, mat));
-		sortedStudents = students;
+		sortedStudents = new ArrayList<Student>(students);
 	}
 	
 	
@@ -175,7 +176,7 @@ public class StudentService {
 		for(int i = 0; i < students.size() ; i++) {
 			if(students.get(i).getNo() == no) {
 				students.remove(i);
-				sortedStudents = students;
+				sortedStudents = new ArrayList<Student>(students);
 				break;
 			}	
 		}
