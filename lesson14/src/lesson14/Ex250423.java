@@ -11,30 +11,41 @@ public class Ex250423 {
 		Map<String,Integer> map = new HashMap<>();
 		String str = "aaaaabbbbcccddddd";
 		// {a:5, b:4, c:3, d:5}
-		int a = 1;
-		int b = 1;
-		int c = 1;
-		int d = 1;
-			
+		
+		
 		
 		for(int i = 0; i < str.length(); i++) {
-			if(str.charAt(i) == 'a') {
-				map.put("a", a++);
+			String j = String.valueOf(str.charAt(i)); // j에 스트링 하나하나를 담음
+			if(map.containsKey(j)) { // 만약 중복된 키값이 있으면 밸류 값 1  증가   
+				map.put(j, map.get(j) + 1);
 			}
-			if(str.charAt(i) == 'b') {
-				map.put("b", b++);
-			}
-			if(str.charAt(i) == 'c') {
-				map.put("c", c++);
-			}
-			if(str.charAt(i) == 'd') {
-				map.put("d", d++);
+			else {
+				map.put(j, 1); // 중복 키값 없으면, 밸류 1로 새로 생성
 			}
 		}
-				
 		System.out.println(map.entrySet());
+			
 		
 		
+				
+		
+//		int a = 1;
+//		int b = 1;
+//		int c = 1;
+//		int d = 1;
+		
+//			if(j.equals("a")) {       처음시도 - 반복구문인데.. 변수필요 ..  굳이???
+//				map.put("a", a++);
+//			}
+//			if(j.equals("b")) {
+//				map.put("b", b++);
+//			}
+//			if(j.equals("c")) {
+//				map.put("c", c++);
+//			}
+//			if(j.equals("d")) {
+//				map.put("d", d++);
+//			}
 		
 	}
 }

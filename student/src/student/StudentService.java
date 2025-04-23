@@ -187,7 +187,7 @@ public class StudentService {
 	public void rank() {
 		System.out.println("==== 전체 석차 확인 ====");
 		
-		sortedStudents.sort((o1, o2) -> o1.total() - o2.total());
+		sortedStudents.sort((o1, o2) -> o2.total() - o1.total());
 		
 		for(int i= 0; i < sortedStudents.size(); i++) {
 			
