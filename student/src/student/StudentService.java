@@ -3,27 +3,25 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentService {
-	// 1. 학생 예제의 배열 > 리스트로 교체
-	// 2. 이름 유효성을 정규표현식으로 교체
+	// 1. comprator 사용해서 순위정보 표시
+
 	
+	
+	// 랜덤 점수
 	private int ranscore;
-	
-	
 	private int randomScore() {
-			ranscore = (int)(Math.random() * 41) + 60;
-			return ranscore;
+			return  ranscore = (int)(Math.random() * 41) + 60;
 	}
 	
-	
+	// 학생 리스트, 학생 순위 리스트 생성
 	List<Student> students = new ArrayList<Student>();
-	List<Student> sortedStudents = new ArrayList<Student>();
-
-
+	List<Student> sortedStudents;
 	
-	{
+	{ // 초기화 블럭
 		students.add(new Student(1, "김둘리", randomScore(), randomScore(), randomScore()));
 		students.add(new Student(2, "박또치", randomScore(), randomScore(), randomScore()));
 		students.add(new Student(3, "마이콜", randomScore(), randomScore(), randomScore()));
@@ -32,11 +30,7 @@ public class StudentService {
 		sortedStudents = new ArrayList<Student>(students);
 	}
 	
-	
-	
-	// 입력 : 학번
-	// 출력 : 학생
-	// 중복 체크
+	// 중복 체크 - 입력 : 학번,  출력 : 학생
 	public Student findBy(int no) {
 		Student student = null;
 		for (int i = 0; i < students.size(); i++) {
@@ -47,7 +41,6 @@ public class StudentService {
 		}
 		return student;
 	}
-	
 	
 	// 점수 범위 체크 메서드
 	public int checkRange(String subject, int input, int start, int end) {
@@ -61,33 +54,28 @@ public class StudentService {
 		return checkRange(subject, input, 0, 100);
 	}
 	
-	
 	// 이름 체크 메서드
 	public String inputName() throws IllegalArgumentException {
 		String name = StudentUtills.nextLine("이름을 입력하세요 : ");
 		String namecheck = "[가-힣]{2,4}";
 		if(!name.matches(namecheck)) {
 			throw new IllegalArgumentException("이름은 2 ~ 4글자 한글로 입력해주세요.");
-			
 		}
 		return name;
 	}
 	
-	
-	
-	
-	// 등록
+
+	// 1. 등록
 	public void register() {
 		System.out.println("==== 등록 기능 ====");
 		
 		int no = StudentUtills.nextInt("학번을 입력하세요 : ");
-
+		
 		Student s = findBy(no);
 		if (s != null) {
 			System.out.println("중복된 학번이 존재합니다.");
 			return;
 		}
-		
 		
 		
 		String name = inputName();
@@ -106,11 +94,7 @@ public class StudentService {
 	}
 	
 	
-	
-	
-	
-	
-	// 조회
+	// 2. 조회
 	public void read() {
 		System.out.println("==== 조회 기능 ====");	
 		print(students);
@@ -122,18 +106,14 @@ public class StudentService {
 	}
 	
 	public void print(List<Student> s) {
-		for(int i = 0; i < s.size(); i++) {
-			System.out.println(s.get(i).toString());
-		}
+//		for(int i = 0; i < s.size(); i++) {
+//			System.out.println(s.get(i).toString());
+//		}
+		s.forEach(System.out::println); // 스트림(?)
 	}
 	
-	
-	
-	
-	
-	
-	
-	// 수정
+
+	// 3. 수정
 	public void modify() {
 		System.out.println("==== 수정 기능 ===="); // 학생들 배열에서 입력받은 학번과 일치하는 학생
 		int no = StudentUtills.nextInt("수정을 원하시는 학번을 입력하세요 : ");
@@ -160,10 +140,7 @@ public class StudentService {
 	}
 	
 	
-	
-	
-	
-	// 삭제
+	// 4. 삭제
 	public void remove() {
 		System.out.println("==== 삭제 기능 ====");
 		int no = StudentUtills.nextInt("삭제를 원하시는 학번을 입력하세요 : ");
@@ -173,35 +150,32 @@ public class StudentService {
 			System.out.println("입력된 학번이 존재하지 않습니다.");
 			return;
 		}
-		for(int i = 0; i < students.size() ; i++) {
-			if(students.get(i).getNo() == no) {
-				students.remove(i);
-				sortedStudents = new ArrayList<Student>(students);
-				break;
-			}	
-		}
+		students.remove(s);
+		sortedStudents.remove(s);
 	}
 	
 	
-	
-	// 과목별 평균
+	// 5. 과목별 평균
 	public void allAvg() {
 		System.out.println("==== 과목별 평균 확인 ====");
+//		students.stream().map(s->s.getKor());
+		
 		double kor = 0; // 국어 평균
 		double eng = 0; // 영어 평균
 		double mat = 0; // 수학 평균
-		for(int i = 0; i < students.size(); i++) {
+		int size = students.size();
+		for(int i = 0; i < size; i++) {
 			kor += students.get(i).getKor();
 			eng += students.get(i).getEng();
 			mat += students.get(i).getMat();
 		}
-		kor /= students.size();
-		eng /= students.size();
-		mat /= students.size();
+		kor /= size;
+		eng /= size;
+		mat /= size;
 		
 		double avg = (kor + eng + mat) / 3;
 		
-		System.out.println(students.size() + "명의 학생 평균입니다.");
+		System.out.println(size + "명의 학생 평균입니다.");
 		System.out.printf("국어 평균 : %.2f", kor);
 		System.out.printf(", 영어 평균 : %.2f", eng);
 		System.out.printf(", 수학 평균 : %.2f", mat);
@@ -209,25 +183,15 @@ public class StudentService {
 	}
 	
 	
-	
-	
-	// 석차순 조회
+	// 6. 석차순 조회
 	public void rank() {
 		System.out.println("==== 전체 석차 확인 ====");
 		
+		sortedStudents.sort((o1, o2) -> o1.total() - o2.total());
+		
 		for(int i= 0; i < sortedStudents.size(); i++) {
-			int idx = i;
-			for(int j = 1 + i; j < sortedStudents.size(); j++) {
-				if(sortedStudents.get(idx).total() < sortedStudents.get(j).total()) {
-					idx = j;
-				}
-			}
-			Student tmp = sortedStudents.get(i);
-			sortedStudents.set(i, sortedStudents.get(idx));
-			sortedStudents.set(idx, tmp);
 			
 			System.out.println("[ " + (i + 1) + "위 ] " + sortedStudents.get(i).toString());
-			
 		}
 	}	
 }
