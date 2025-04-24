@@ -3,8 +3,11 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class StudentService {
 	// 1. comprator 사용해서 순위정보 표시
@@ -12,9 +15,9 @@ public class StudentService {
 	
 	
 	// 랜덤 점수
-	private int ranscore;
+
 	private int randomScore() {
-			return  ranscore = (int)(Math.random() * 41) + 60;
+			return (int)(Math.random() * 41) + 60;
 	}
 	
 	// 학생 리스트, 학생 순위 리스트 생성
@@ -22,13 +25,24 @@ public class StudentService {
 	List<Student> sortedStudents;
 	
 	{ // 초기화 블럭
-		students.add(new Student(1, "김둘리", randomScore(), randomScore(), randomScore()));
-		students.add(new Student(2, "박또치", randomScore(), randomScore(), randomScore()));
-		students.add(new Student(3, "마이콜", randomScore(), randomScore(), randomScore()));
-		students.add(new Student(4, "고길동", randomScore(), randomScore(), randomScore()));
+//		
+		students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+		students.add(Student.builder().no(2).name("소똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+		students.add(Student.builder().no(3).name("말똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+		students.add(Student.builder().no(4).name("쥐똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
 		
 		sortedStudents = new ArrayList<Student>(students);
 	}
+	
+	// 싱글톤
+	private static StudentService studentService = new StudentService();
+	private StudentService() {
+		
+	}
+	public static StudentService getInstance() {
+		return studentService;
+	}
+	
 	
 	// 중복 체크 - 입력 : 학번,  출력 : 학생
 	public Student findBy(int no) {
@@ -186,12 +200,21 @@ public class StudentService {
 	// 6. 석차순 조회
 	public void rank() {
 		System.out.println("==== 전체 석차 확인 ====");
+		int r = 1;
 		
-		sortedStudents.sort((o1, o2) -> o2.total() - o1.total());
+		// list sort()
+		sortedStudents.sort((o1, o2) -> -(o1.total() - o2.total()));
 		
-		for(int i= 0; i < sortedStudents.size(); i++) {
-			
-			System.out.println("[ " + (i + 1) + "위 ] " + sortedStudents.get(i).toString());
+		
+		// 2. TreeSet()
+//		sortedStudents = new ArrayList<>(new TreeSet<>(sortedStudents));
+		
+		// 3. Collections
+		Collections.sort(sortedStudents,(o1, o2) -> -(o1.total() - o2.total()));
+
+		for(Student s : sortedStudents) {
+			System.out.println("[ " + r++ + "위 ] " + s.toString());
 		}
+		
 	}	
 }

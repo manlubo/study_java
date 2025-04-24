@@ -12,7 +12,7 @@ public class StudentMain {
 	
 		
 		
-		StudentService service = new StudentService ();
+		StudentService service = StudentService.getInstance();
 		
 		System.out.println("================= 학생 점수 관리 프로그램 ==================");
 		for(;;) {
