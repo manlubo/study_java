@@ -67,7 +67,7 @@ public class Customer {
 	// 투스트링
 	@Override
 	public String toString() {
-		return String.format("[no=%s, name=%s, tel=%s, email=%s, id=%s, pw=%s]", no, name, tel, email, id, pw);
+		return String.format("[%s님의 회원정보]%n전화번호 : %s, email : %s, 아이디 : %s", name, tel, email, id);
 	}
 	
 	

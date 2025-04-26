@@ -20,7 +20,13 @@ public class BankApp {
 				+ "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
 		while(true) {
 			System.out.println("=============================");
-			BankService.getInstance().menu();
+			try {
+				BankService.getInstance().menu();
+			}
+			catch (Exception e){
+				System.out.println("종료되었습니다.");
+				return;
+			}
 		}
 	}
 }
