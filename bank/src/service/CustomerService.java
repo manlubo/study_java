@@ -160,6 +160,8 @@ public class CustomerService {
 					System.out.println("입력하신 비밀번호가 틀렸습니다.");
 					return;
 				}
+				
+				
 				loginCustomer = new Customer(loginCustomer.getNo(),loginCustomer.getName(), tel, loginCustomer.getEmail(), loginCustomer.getId(), loginCustomer.getPw());
 				System.out.println("회원정보가 변경되었습니다.");
 				sync();
@@ -220,7 +222,7 @@ public class CustomerService {
 	public void delete() {
 		System.out.println("==========회원 탈퇴==========");
 		for (int i = 0; i < customers.size(); i++) {
-			if(loginCustomer.getId().equals(customers.get(i).getId()) && BankUtils.nextConfirm("정말로 탈퇴하시겠습니까? (y / n)")) {
+			if(loginCustomer.getId().equals(customers.get(i).getId()) && loginCustomer.getPw().equals(BankUtils.nextLine("회원 탈퇴를 위해 현재 비밀번호를 입력해주세요.")) && BankUtils.nextConfirm("정말로 탈퇴하시겠습니까? (y / n)")) {
 				customers.remove(i);
 				loginCustomer = null;
 				System.out.println("회원 탈퇴 완료");
