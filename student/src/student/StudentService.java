@@ -1,6 +1,12 @@
 package student;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+@SuppressWarnings("unchecked")
 public class StudentService {
 	// 1. comprator 사용해서 순위정보 표시
 
@@ -24,13 +31,24 @@ public class StudentService {
 	List<Student> students = new ArrayList<Student>();
 	List<Student> sortedStudents;
 	
+	
 	{ // 초기화 블럭
-//		
-		students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
-		students.add(Student.builder().no(2).name("소똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
-		students.add(Student.builder().no(3).name("말똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
-		students.add(Student.builder().no(4).name("쥐똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
-		
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream("data/student.ser"));
+			students = (List<Student>)ois.readObject();
+			ois.close();
+		} 
+		catch(FileNotFoundException e) {
+			System.out.println("파일을 불러 올 수 없습니다. 임시 데이터셋으로 진행합니다.");
+			students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+			students.add(Student.builder().no(2).name("소똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+			students.add(Student.builder().no(3).name("말똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+			students.add(Student.builder().no(4).name("쥐똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+		} 
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		sortedStudents = new ArrayList<Student>(students);
 	}
 	
@@ -78,7 +96,7 @@ public class StudentService {
 		return name;
 	}
 	
-
+	
 	// 1. 등록
 	public void register() {
 		System.out.println("==== 등록 기능 ====");
@@ -105,6 +123,7 @@ public class StudentService {
 
 		students.add(new Student(no, name, kor, eng, mat));
 		sortedStudents = new ArrayList<Student>(students);
+		save();
 	}
 	
 	
@@ -151,6 +170,7 @@ public class StudentService {
 		checkRange("영어", s.getEng());
 		s.setMat(StudentUtills.nextInt("수학점수를 입력하세요 : "));
 		checkRange("수학", s.getMat());
+		save();
 	}
 	
 	
@@ -166,6 +186,7 @@ public class StudentService {
 		}
 		students.remove(s);
 		sortedStudents.remove(s);
+		save();
 	}
 	
 	
@@ -216,5 +237,22 @@ public class StudentService {
 			System.out.println("[ " + r++ + "위 ] " + s.toString());
 		}
 		
-	}	
+	}
+	
+	private void save() {
+		try {
+			File file = new File("data");
+			if(!file.exists()) {
+				file.mkdirs(); // 디렉토리가 없으면 만들어라
+			}
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(file, "student.ser")));
+			oos.writeObject(students);
+			oos.close();
+		}
+		catch (Exception e) {
+			System.out.println("파일 접근 권한이 없습니다.");
+			e.printStackTrace();
+		}
+	}
+	
 }

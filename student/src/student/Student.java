@@ -1,9 +1,10 @@
 package student;
 
+import java.io.Serializable;
 import java.net.MulticastSocket;
 
 // Data class
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student>, Serializable{
 	// 클래스 내에 선언할 위치
 	// 1. 필드
 	// 2. 생성자
