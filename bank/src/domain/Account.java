@@ -12,9 +12,9 @@ public class Account {
 	// 계좌 비밀번호
 	private String pw;
 	// 한도액수
-	private long limit;
+	private long limit = 1_000_000;
 	// 개설일
-	private Date date; 
+	private Date date = new Date(); 
 	
 	
 	// 생성자
@@ -22,14 +22,10 @@ public class Account {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account(int no, long amount, Customer customer, String pw, long limit, Date date) {
-		super();
+	public Account(int no, Customer customer, String pw) {
 		this.no = no;
-		this.amount = amount;
 		this.customer = customer;
 		this.pw = pw;
-		this.limit = limit;
-		this.date = date;
 	}
 
 	// 게터, 세터
@@ -84,8 +80,7 @@ public class Account {
 	// 투스트링
 	@Override
 	public String toString() {
-		return String.format("[no=%s, amount=%s, customer=%s, pw=%s, limit=%s, date=%s]", no, amount, customer,
-				pw, limit, date);
+		return String.format("[계좌번호 : %s]%n잔고 : %s%n1회 출금한도 : %s%n개설일 : %s", no, amount, limit, date);
 	}
 	
 	

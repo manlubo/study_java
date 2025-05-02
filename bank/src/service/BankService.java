@@ -13,6 +13,7 @@ public class BankService {
 	}
 	
 	private CustomerService customerService = CustomerService.getInstance();
+	private AccountService accountService = AccountService.getInstance();
 	
 	public void menu() throws Exception{
 		try {
@@ -41,7 +42,7 @@ public class BankService {
 			}
 			else { //
 				System.out.println("=========로그인 상태=========");
-				int no = BankUtils.nextInt("1.회원정보조회 2.회원정보수정 6.회원탈퇴 7.로그아웃");
+				int no = BankUtils.nextInt("1.회원정보조회 2.회원정보수정 3.계좌개설 4.입금 5.출금 6.이체 7.해지 8.회원탈퇴 9.로그아웃");
 				switch(no){
 					case 1:{
 						customerService.userInfo();
@@ -51,12 +52,31 @@ public class BankService {
 						customerService.userModify();
 						break;
 					}
-				
+					case 3:{
+						accountService.open();
+						break;
+					}
+					case 4:{
+						accountService.deposit();;
+						break;
+					}
+					case 5:{
+						accountService.wirhdraw();
+						break;
+					}
 					case 6:{
-						customerService.delete();
+						accountService.transfer();
 						break;
 					}
 					case 7:{
+						accountService.close();
+						break;
+					}					
+					case 8:{
+						customerService.delete();
+						break;
+					}
+					case 9:{
 						customerService.logout();
 						break;
 					}

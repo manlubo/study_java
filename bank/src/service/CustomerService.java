@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import domain.Customer;
 import utils.BankUtils;
-
+import static utils.BankUtils.*;
 public class CustomerService {
 	private List<Customer> customers = new ArrayList<>();
 	private Customer loginCustomer; // 초기 상태
@@ -14,9 +14,10 @@ public class CustomerService {
 	public static CustomerService getInstance() {
 		return customerService;
 	}
-	int count = 1;
+//	private AccountService accountService = AccountService.getInstance();
+	
 	{
-		customers.add(new Customer(count++, "새똥이", "010-1111-2222", "ssa@gmail.com", "ssa", "1234"));
+		customers.add(new Customer(1, "새똥이", "010-1111-2222", "ssa@gmail.com", "ssa", "1234"));
 	}
 	
 	
@@ -49,6 +50,7 @@ public class CustomerService {
 		return customer;
 	}
 	
+	
 	// 전화번호 정규식
 	String telcheck = "01[0-16-9]{1}-[0-9]{3,4}-[0-9]{4}";
 	// 이메일 정규식
@@ -57,8 +59,8 @@ public class CustomerService {
 	// 회원가입
 	public void register() {
 		System.out.println("==========회원가입===========");
-		String name = BankUtils.nextLine("이름을 입력해주세요.");
-		String tel = BankUtils.nextLine("전화번호를 입력해주세요. (10 ~ 11자리 숫자와 - 로 구성되어야합니다.)");
+		String name = nextLine("이름을 입력해주세요.");
+		String tel = nextLine("전화번호를 입력해주세요. (10 ~ 11자리 숫자와 - 로 구성되어야합니다.)");
 		if(!tel.matches(telcheck)) {
 			System.out.println("형식에 맞지않는 전화번호입니다. (ex. 010-0000-0000)");
 			return;
@@ -69,34 +71,35 @@ public class CustomerService {
 			System.out.println("중복된 전화번호가 존재합니다.");
 			return;
 		}
-		String email = BankUtils.nextLine("이메일을 입력해주세요.");
+		String email = nextLine("이메일을 입력해주세요.");
 		if(!email.matches(emailcheck)) {
 			System.out.println("올바르지 않은 이메일입니다.");
 			return;
 		}
-		String id = BankUtils.nextLine("사용하실 아이디를 입력해주세요.");
+		String id = nextLine("사용하실 아이디를 입력해주세요.");
 		c = findById(id);
 		if(c != null) {
 			System.out.println("중복된 아이디가 존재합니다.");
 			return;
 		}
 		
-		String pw = BankUtils.nextLine("사용하실 비밀번호를 입력해주세요.");
-		String pwCheck = BankUtils.nextLine("비밀번호 확인 : 입력하신 비밀번호를 한번더 입력해주세요.");
+		String pw = nextLine("사용하실 비밀번호를 입력해주세요.");
+		String pwCheck = nextLine("비밀번호 확인 : 입력하신 비밀번호를 한번더 입력해주세요.");
 		if(!pw.equals(pwCheck)) {
 			System.out.println("입력하신 비밀번호가 서로 다릅니다.");
 			return;
 		}
-		
-		customers.add(new Customer(count++, name, tel, email, id, pw));
+		int count = customers.isEmpty() ? 1 : customers.get(customers.size() - 1).getNo() + 1;
+		customers.add(new Customer(count, name, tel, email, id, pw));
+		System.out.println("회원가입 완료!");
 	}
 	
 	
 	
 	// 로그인
 	public void login() {
-		String id = BankUtils.nextLine("아이디를 입력해주세요.");
-		String pw = BankUtils.nextLine("비밀번호를 입력해주세요.");
+		String id = nextLine("아이디를 입력해주세요.");
+		String pw = nextLine("비밀번호를 입력해주세요.");
 		
 		boolean flag = false;
 		for(Customer c : customers) {
@@ -112,21 +115,11 @@ public class CustomerService {
 		
 	}
 	
-	// 로그인 유저와 유저정보 연동
-	public void sync() {
-		for (int i = 0; i < customers.size(); i++) {
-			if(loginCustomer.getId().equals(customers.get(i).getId())) {
-				customers.remove(i);
-				customers.add(i,loginCustomer);
-				break;
-			}
-		}
-	}
 	
 	
 	//로그아웃
 	public void logout() {
-		sync();
+		
 		loginCustomer = null;
 		System.out.println("로그아웃 되었습니다.");
 	}
@@ -136,6 +129,8 @@ public class CustomerService {
 	// 회원정보 조회
 	public void userInfo() {
 		System.out.println(loginCustomer.toString());
+		System.out.println("[계좌 조회]");
+		System.out.println(AccountService.getInstance().findAccountBy(loginCustomer)); 
 	}
 	
 	// 회원정보 수정
@@ -145,6 +140,8 @@ public class CustomerService {
 		switch(input) {
 			case 1:{
 				System.out.println("전화번호 변경");
+				
+				Customer cus = findById(loginCustomer.getId()); 
 				String tel = BankUtils.nextLine("변경하실 전화번호를 입력해주세요. (10 ~ 11자리 숫자와 - 로 구성되어야합니다.)");
 				if(!tel.matches(telcheck)) {
 					System.out.println("형식에 맞지않는 전화번호입니다. (ex. 010-0000-0000)");
@@ -162,14 +159,15 @@ public class CustomerService {
 				}
 				
 				
-				loginCustomer = new Customer(loginCustomer.getNo(),loginCustomer.getName(), tel, loginCustomer.getEmail(), loginCustomer.getId(), loginCustomer.getPw());
+				
+				cus.setTel(tel);
 				System.out.println("회원정보가 변경되었습니다.");
-				sync();
 				break;
 			}
 			case 2:{
 				System.out.println("이메일 변경");
 				String email = BankUtils.nextLine("변경하실 이메일을 입력해주세요.");
+				Customer cus = findById(loginCustomer.getId()); 
 				if(!email.matches(emailcheck)) {
 					System.out.println("올바르지 않은 이메일입니다.");
 					return;
@@ -183,12 +181,12 @@ public class CustomerService {
 					System.out.println("입력하신 비밀번호가 틀렸습니다.");
 					return;
 				}
-				loginCustomer = new Customer(loginCustomer.getNo(),loginCustomer.getName(), loginCustomer.getTel(), email, loginCustomer.getId(), loginCustomer.getPw());
-				sync();
+				cus.setEmail(email);
 				System.out.println("회원정보가 변경되었습니다.");
 				break;
 			}
 			case 3:{
+				Customer cus = findById(loginCustomer.getId()); 
 				String pw = BankUtils.nextLine("변경을 위해 현재 비밀번호를 입력해주세요.");
 				if(!pw.equals(loginCustomer.getPw())) {
 					System.out.println("입력하신 비밀번호가 틀렸습니다.");
@@ -203,8 +201,7 @@ public class CustomerService {
 					System.out.println("입력하신 비밀번호가 서로 다릅니다.");
 					return;
 				}
-				loginCustomer = new Customer(loginCustomer.getNo(),loginCustomer.getName(), loginCustomer.getTel(), loginCustomer.getEmail(), loginCustomer.getId(), pwModify);
-				sync();
+				cus.setPw(pwModify);
 				System.out.println("회원정보가 변경되었습니다.");
 				break;
 			}
@@ -222,13 +219,17 @@ public class CustomerService {
 	public void delete() {
 		System.out.println("==========회원 탈퇴==========");
 		for (int i = 0; i < customers.size(); i++) {
-			if(loginCustomer.getId().equals(customers.get(i).getId()) && loginCustomer.getPw().equals(BankUtils.nextLine("회원 탈퇴를 위해 현재 비밀번호를 입력해주세요.")) && BankUtils.nextConfirm("정말로 탈퇴하시겠습니까? (y / n)")) {
+			if(!AccountService.getInstance().findAccountBy(loginCustomer).isEmpty()) {
+				System.out.println("계좌가 존재합니다. 해지 후 탈퇴를 진행하세요.");
+				return;
+			}
+			
+			if(loginCustomer.getId().equals(customers.get(i).getId()) && loginCustomer.getPw().equals(BankUtils.nextLine("회원 탈퇴를 위해 현재 비밀번호를 입력해주세요.")) && BankUtils.nextConfirm("정말로 탈퇴하시겠습니까?")) {
 				customers.remove(i);
-				loginCustomer = null;
+				logout();
 				System.out.println("회원 탈퇴 완료");
 				break;
 			}
 		}
 	}
-	
 }
