@@ -5,7 +5,20 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
+//		Card card = new Card(Kind.CLOVER, 0);
+//		Kind kind = Kind.DIAMOND;
+//		Kind kind2 = Kind.HEART;
+//		card.kind = Kind.SPADE;
+//		System.out.println(card);
+//		System.out.println(card.kind);
+//		System.out.println(kind.ordinal());
+//		System.out.println(kind == kind2);
+//		System.out.println(kind.score());
+//		System.out.println(kind2.score());
+//		System.out.println(kind.getName());
+//		System.out.println(kind2.getName());
 		play();
+		
 	}
 	
 	static void play() {

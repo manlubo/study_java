@@ -9,9 +9,10 @@ public class Deck {
 	
 	List<Card> cards = new ArrayList<Card>();
 	{	
+		Kind[] kinds = Kind.values();
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 13; j++) {
-				cards.add(new Card(i, j)); 
+				cards.add(new Card(kinds[i], j)); 
 			}
 		}
 	}
